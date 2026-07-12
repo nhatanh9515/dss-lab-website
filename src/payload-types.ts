@@ -639,6 +639,16 @@ export interface SiteSetting {
     description?: string | null;
     ogImage?: (number | null) | Media;
   };
+  footer?: {
+    /**
+     * Dòng chữ dưới tên thương hiệu ở chân trang.
+     */
+    tagline?: string | null;
+    /**
+     * Để trống sẽ tự hiển thị "<năm hiện tại> © DSS HOMELAB". Nhập gì thì hiện đúng như vậy.
+     */
+    copyright?: string | null;
+  };
   homeBanners?:
     | {
         image: number | Media;
@@ -674,6 +684,12 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         ogImage?: T;
+      };
+  footer?:
+    | T
+    | {
+        tagline?: T;
+        copyright?: T;
       };
   homeBanners?:
     | T

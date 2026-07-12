@@ -14,6 +14,10 @@ export function Footer({ settings }: { settings: SiteSetting }) {
   ].filter((s) => s.href)
 
   const year = new Date().getFullYear()
+  const tagline =
+    settings.footer?.tagline ||
+    'Mỹ phẩm chăm sóc da lành tính, an toàn cho làn da Việt.'
+  const copyright = settings.footer?.copyright || `${year} © DSS HOMELAB`
 
   return (
     <footer className="mt-16 border-t border-line-subtle bg-bg">
@@ -25,7 +29,7 @@ export function Footer({ settings }: { settings: SiteSetting }) {
               DSS HOMELAB
             </div>
             <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-              Mỹ phẩm chăm sóc da lành tính, an toàn cho làn da Việt.
+              {tagline}
             </p>
             {settings.hotline && (
               <p className="mt-3 text-sm text-ink-soft">
@@ -81,7 +85,7 @@ export function Footer({ settings }: { settings: SiteSetting }) {
         </div>
 
         <div className="mt-10 text-center text-xs text-muted-2">
-          {year} © DSS HOMELAB
+          {copyright}
         </div>
       </div>
     </footer>

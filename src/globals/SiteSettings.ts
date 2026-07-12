@@ -48,6 +48,29 @@ export const SiteSettings: GlobalConfig = {
       ],
     },
     {
+      name: 'footer',
+      type: 'group',
+      label: 'Chân trang (Footer)',
+      fields: [
+        {
+          name: 'tagline',
+          type: 'textarea',
+          label: 'Mô tả thương hiệu',
+          defaultValue: 'Mỹ phẩm chăm sóc da lành tính, an toàn cho làn da Việt.',
+          admin: { description: 'Dòng chữ dưới tên thương hiệu ở chân trang.' },
+        },
+        {
+          name: 'copyright',
+          type: 'text',
+          label: 'Dòng bản quyền',
+          admin: {
+            description:
+              'Để trống sẽ tự hiển thị "<năm hiện tại> © DSS HOMELAB". Nhập gì thì hiện đúng như vậy.',
+          },
+        },
+      ],
+    },
+    {
       name: 'homeBanners',
       type: 'array',
       label: 'Banner trang chủ',
