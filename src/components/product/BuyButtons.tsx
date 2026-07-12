@@ -3,6 +3,7 @@
 import { ShoppingBag, Music2, MessageCircle, Facebook, Phone } from 'lucide-react'
 import type { Product } from '@/payload-types'
 import { trackBuyClick, type BuyChannel } from '@/lib/gtag'
+import { externalHref } from '@/lib/format'
 
 type Links = NonNullable<Product['links']>
 
@@ -21,14 +22,14 @@ export function BuyButtons({
   const purchase = [
     {
       channel: 'shopee' as BuyChannel,
-      href: l.shopee,
+      href: externalHref(l.shopee),
       label: 'Mua trên Shopee',
       icon: ShoppingBag,
       style: 'bg-channel-shopee text-white',
     },
     {
       channel: 'tiktok' as BuyChannel,
-      href: l.tiktok,
+      href: externalHref(l.tiktok),
       label: 'Mua trên TikTok Shop',
       icon: Music2,
       style: 'bg-channel-tiktok text-white',
@@ -39,14 +40,14 @@ export function BuyButtons({
   const contact = [
     {
       channel: 'zalo' as BuyChannel,
-      href: l.zalo,
+      href: externalHref(l.zalo),
       label: 'Chat Zalo',
       icon: MessageCircle,
       style: 'bg-accent text-ink',
     },
     {
       channel: 'facebook' as BuyChannel,
-      href: l.facebook,
+      href: externalHref(l.facebook),
       label: 'Nhắn Facebook',
       icon: Facebook,
       style: 'border border-line-strong text-ink',

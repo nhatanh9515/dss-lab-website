@@ -3,6 +3,7 @@
 import { Phone, MessageCircle, Facebook } from 'lucide-react'
 import type { SiteSetting } from '@/payload-types'
 import { trackBuyClick, type BuyChannel } from '@/lib/gtag'
+import { externalHref } from '@/lib/format'
 
 type Item = {
   channel: BuyChannel
@@ -31,7 +32,7 @@ export function FloatingContact({
 
   const items: Item[] = []
 
-  const messengerUrl = c.messengerUrl
+  const messengerUrl = externalHref(c.messengerUrl)
   if (c.messengerEnabled && messengerUrl) {
     items.push({
       channel: 'facebook',
@@ -41,7 +42,7 @@ export function FloatingContact({
     })
   }
 
-  const zaloUrl = c.zaloUrl || fallbackZalo
+  const zaloUrl = externalHref(c.zaloUrl || fallbackZalo)
   if ((c.zaloEnabled ?? true) && zaloUrl) {
     items.push({
       channel: 'zalo',

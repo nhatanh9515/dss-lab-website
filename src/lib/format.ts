@@ -25,6 +25,18 @@ export const getImageAlt = (media: MediaLike): string => {
   return media.alt || ''
 }
 
+/**
+ * Chuẩn hoá link ngoài: nếu người dùng quên "https://" thì tự thêm vào.
+ * Giữ nguyên link nội bộ (bắt đầu bằng /), tel:, mailto:, # và link đã có scheme.
+ */
+export const externalHref = (url?: string | null): string => {
+  if (!url) return ''
+  const u = url.trim()
+  if (!u) return ''
+  if (/^(https?:\/\/|tel:|mailto:|\/|#)/i.test(u)) return u
+  return `https://${u}`
+}
+
 /** Trích text thuần từ nội dung richText (Lexical) — dùng cho mô tả ngắn ở card. */
 export const richTextToPlain = (data: unknown): string => {
   if (!data || typeof data !== 'object') return ''

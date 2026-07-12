@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { getCategories, getSiteSettings } from '@/lib/queries'
-import { getImageUrl, getImageAlt } from '@/lib/format'
+import { getImageUrl, getImageAlt, externalHref } from '@/lib/format'
 import { ProductList } from '@/components/product/ProductList'
 import { ProductGridSkeleton } from '@/components/product/ProductCardSkeleton'
 
@@ -32,7 +32,7 @@ export default async function HomePage({
       {/* Banner — luôn cố định, không đổi khi lọc/tìm kiếm */}
       {banner ? (
         <Link
-          href={banner.link || '/'}
+          href={externalHref(banner.link) || '/'}
           className="relative block aspect-[16/10] overflow-hidden rounded-lg bg-accent md:aspect-[21/9]"
         >
           {bannerUrl && (

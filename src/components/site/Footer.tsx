@@ -1,16 +1,17 @@
 import Link from 'next/link'
 import type { SiteSetting } from '@/payload-types'
 import { NAV_LINKS } from './nav-links'
+import { externalHref } from '@/lib/format'
 
 export function Footer({ settings }: { settings: SiteSetting }) {
   const social = settings.social || {}
   const socialLinks = [
-    { key: 'facebook', label: 'Facebook', href: social.facebook },
-    { key: 'instagram', label: 'Instagram', href: social.instagram },
-    { key: 'tiktok', label: 'TikTok', href: social.tiktok },
-    { key: 'zalo', label: 'Zalo', href: social.zalo },
-    { key: 'shopee', label: 'Shopee', href: social.shopee },
-    { key: 'youtube', label: 'YouTube', href: social.youtube },
+    { key: 'facebook', label: 'Facebook', href: externalHref(social.facebook) },
+    { key: 'instagram', label: 'Instagram', href: externalHref(social.instagram) },
+    { key: 'tiktok', label: 'TikTok', href: externalHref(social.tiktok) },
+    { key: 'zalo', label: 'Zalo', href: externalHref(social.zalo) },
+    { key: 'shopee', label: 'Shopee', href: externalHref(social.shopee) },
+    { key: 'youtube', label: 'YouTube', href: externalHref(social.youtube) },
   ].filter((s) => s.href)
 
   const year = new Date().getFullYear()
