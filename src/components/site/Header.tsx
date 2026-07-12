@@ -29,8 +29,8 @@ export function Header({ settings }: { settings: SiteSetting }) {
           )}
         </Link>
 
-        {/* Menu desktop */}
-        <nav className="mx-auto hidden items-center gap-7 md:flex">
+        {/* Menu desktop — căn trái, sát logo */}
+        <nav className="ml-8 mr-auto hidden items-center gap-7 md:flex">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}

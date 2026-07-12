@@ -1,13 +1,14 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import type { Product } from '@/payload-types'
-import { getImageUrl, getImageAlt } from '@/lib/format'
+import { getImageUrl, getImageAlt, richTextToPlain } from '@/lib/format'
 import { StockBadge } from './StockBadge'
 import { Price } from './Price'
 
 export function ProductCard({ product }: { product: Product }) {
   const firstImage = product.images?.[0]?.image
   const imageUrl = getImageUrl(firstImage, 'card')
+  const shortDesc = richTextToPlain(product.description)
 
   return (
     <Link
@@ -34,6 +35,12 @@ export function ProductCard({ product }: { product: Product }) {
       <h3 className="font-heading text-[15px] font-medium leading-snug text-ink line-clamp-2">
         {product.title}
       </h3>
+
+      {shortDesc && (
+        <p className="line-clamp-2 text-xs leading-relaxed text-ink-soft">
+          {shortDesc}
+        </p>
+      )}
 
       <div className="mt-auto flex items-center justify-between gap-2 pt-1">
         <Price price={product.price} compareAtPrice={product.compareAtPrice} />

@@ -25,6 +25,25 @@ export const getImageAlt = (media: MediaLike): string => {
   return media.alt || ''
 }
 
+/** Trích text thuần từ nội dung richText (Lexical) — dùng cho mô tả ngắn ở card. */
+export const richTextToPlain = (data: unknown): string => {
+  if (!data || typeof data !== 'object') return ''
+  const root = (data as { root?: { children?: unknown[] } }).root
+  if (!root?.children) return ''
+  const walk = (node: unknown): string => {
+    if (!node || typeof node !== 'object') return ''
+    const n = node as { text?: string; children?: unknown[] }
+    if (typeof n.text === 'string') return n.text
+    if (Array.isArray(n.children)) return n.children.map(walk).join('')
+    return ''
+  }
+  return root.children
+    .map(walk)
+    .join(' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
 /** Kích thước gốc của ảnh (để dùng cho next/image khi cần). */
 export const getImageDimensions = (
   media: MediaLike,
