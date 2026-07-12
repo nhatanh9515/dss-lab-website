@@ -38,8 +38,11 @@ Trang serverless (Vercel) mở/đóng kết nối liên tục → phải dùng b
 3. Copy chuỗi (host sẽ có dạng `...-pooler.ap-southeast-1.aws.neon.tech`).
 4. Đảm bảo cuối chuỗi có `?sslmode=verify-full`. Đây là giá trị dán vào `DATABASE_URI` trên Vercel.
 
+> ⚠️ KHÔNG dán chuỗi kết nối / mật khẩu thật vào file này (file được đẩy lên GitHub).
+> Chỉ dán trực tiếp vào ô Environment Variables trên Vercel.
+
 ### b) Tạo PAYLOAD_SECRET mới cho production
-Mở Terminal, chạy lệnh này rồi copy kết quả:
+Mở Terminal, chạy lệnh này rồi copy kết quả (dán thẳng vào Vercel, đừng dán vào file này):
 ```bash
 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ```
@@ -73,7 +76,7 @@ nên bucket R2 phải cho phép domain của bạn gọi tới.
 1. Tạo repo mới **private** ở https://github.com/new (vd tên `dss-homelab`). **Không** tích thêm README/gitignore (repo đã có sẵn).
 2. Ở Terminal, trong thư mục dự án, chạy (thay `<user>` bằng tài khoản GitHub của bạn):
 ```bash
-git remote add origin https://github.com/<user>/dss-homelab.git
+git remote add origin https://github.com/nhatanh9515/dss-lab-website.git
 git push -u origin main
 ```
 > Nếu bị hỏi đăng nhập: dùng GitHub CLI `gh auth login`, hoặc tạo Personal Access Token làm mật khẩu.
