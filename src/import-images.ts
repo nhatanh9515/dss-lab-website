@@ -1,14 +1,18 @@
 /**
  * Upload ảnh sản phẩm từ thư mục "Ảnh sản phẩm" lên CMS (R2) và gán vào sản phẩm.
- * - Ảnh đặt tên theo sản phẩm; sản phẩm nhiều ảnh để trong thư mục tên sản phẩm.
- * - Ảnh không khớp tên sản phẩm sẽ bị bỏ qua.
- * Đồng thời cập nhật giá + hiển thị cho 3 SP body vừa có giá trong sheet.
+ *
+ * Xử lý orientation: nhiều ảnh chụp điện thoại có cờ EXIF orientation bị sai
+ * khiến ảnh nằm ngang khi hiển thị. Script chuẩn hoá bằng cách:
+ *   - Bỏ cờ EXIF (không auto-rotate theo cờ), giữ pixel gốc.
+ *   - Nếu ảnh gốc nằm ngang (rộng > cao) → xoay 90° theo chiều kim đồng hồ để về dọc.
+ * Nhờ đó ảnh lưu lên đã đúng chiều và Payload không xoay lại (cờ đã bị bỏ).
  *
  * Chạy: npm run import:images
  */
 import { createRequire } from 'module'
 import fs from 'fs'
 import path from 'path'
+import sharp from 'sharp'
 
 const require = createRequire(import.meta.url)
 const { loadEnvConfig } = require('@next/env') as typeof import('@next/env')
@@ -18,34 +22,27 @@ const IMG_DIR =
   '/Users/nhatanh/Documents/Coding Projects/Website DSS Homelab/Ảnh sản phẩm'
 
 const IMG_EXT = new Set(['.jpg', '.jpeg', '.png', '.webp'])
-const mimeOf = (ext: string) =>
-  ext === '.png' ? 'image/png' : ext === '.webp' ? 'image/webp' : 'image/jpeg'
 
 // slug sản phẩm -> nguồn ảnh (tên file hoặc tên thư mục trong IMG_DIR)
 const imageMap: { slug: string; src: string }[] = [
   { slug: 'spotless', src: 'spotless.jpg' },
   { slug: 'spotless-glow', src: 'Spotless glow' },
   { slug: 'melanova', src: 'Melanova' },
+  { slug: 'morning-glow', src: 'Morning glow' },
+  { slug: 'ultrasilky', src: 'ultra silky.JPG' },
   { slug: 'milky-glow', src: 'milky glow.JPG' },
   { slug: 'finewine', src: 'finewine.jpg' },
   { slug: 'retinolift', src: 'retinolift.jpg' },
   { slug: 'peel-sweet-poison', src: 'sweet poison.JPG' },
-  { slug: 'mela-bleach', src: 'power bleach.JPG' },
-]
-
-// Cập nhật giá + hiển thị cho 3 SP body (sheet đã bổ sung giá)
-const priceUpdates: { slug: string; price: number }[] = [
-  { slug: 'mela-bleach', price: 1950000 },
-  { slug: 'ultra-bright', price: 1250000 },
-  { slug: 'butter-u-trang', price: 1500000 },
+  { slug: 'mela-bleach', src: 'mela bleach.jpg' },
+  { slug: 'butter-u-trang', src: 'butter ủ trắng.jpg' },
 ]
 
 /** Liệt kê file ảnh của một nguồn (file đơn hoặc thư mục), sắp thứ tự hợp lý. */
 const resolveFiles = (src: string): string[] => {
   const abs = path.join(IMG_DIR, src)
   if (!fs.existsSync(abs)) return []
-  const stat = fs.statSync(abs)
-  if (stat.isDirectory()) {
+  if (fs.statSync(abs).isDirectory()) {
     return fs
       .readdirSync(abs)
       .filter((f) => IMG_EXT.has(path.extname(f).toLowerCase()))
@@ -62,6 +59,18 @@ const resolveFiles = (src: string): string[] => {
   return []
 }
 
+/** Chuẩn hoá chiều ảnh + bỏ EXIF orientation, trả buffer JPEG đã đúng chiều. */
+const normalizeImage = async (filePath: string): Promise<Buffer> => {
+  const input = fs.readFileSync(filePath)
+  // metadata trả về kích thước pixel GỐC (chưa áp cờ EXIF)
+  const meta = await sharp(input).metadata()
+  const isLandscape = (meta.width ?? 0) > (meta.height ?? 0)
+  let img = sharp(input) // KHÔNG .rotate() → bỏ qua cờ EXIF, giữ pixel gốc
+  if (isLandscape) img = img.rotate(90) // ảnh ngang → xoay về dọc
+  // toBuffer không kèm withMetadata => EXIF (gồm orientation) bị loại bỏ
+  return img.jpeg({ quality: 90 }).toBuffer()
+}
+
 const run = async () => {
   const [{ getPayload }, { default: config }] = await Promise.all([
     import('payload'),
@@ -69,58 +78,50 @@ const run = async () => {
   ])
   const payload = await getPayload({ config })
 
-  const findBySlug = async (slug: string) => {
-    const r = await payload.find({
+  for (const { slug, src } of imageMap) {
+    const found = await payload.find({
       collection: 'products',
       where: { slug: { equals: slug } },
       limit: 1,
       depth: 0,
     })
-    return r.docs[0] ?? null
-  }
-
-  // 1) Cập nhật giá + hiển thị cho 3 SP body
-  for (const u of priceUpdates) {
-    const p = await findBySlug(u.slug)
-    if (!p) {
-      payload.logger.warn(`• Không thấy SP "${u.slug}" để cập nhật giá`)
-      continue
-    }
-    await payload.update({
-      collection: 'products',
-      id: p.id,
-      data: { price: u.price, published: true },
-    })
-    payload.logger.info(
-      `✓ Giá: ${p.title} = ${u.price.toLocaleString('vi-VN')}₫ (đã hiện)`,
-    )
-  }
-
-  // 2) Upload ảnh & gán vào sản phẩm
-  for (const { slug, src } of imageMap) {
-    const product = await findBySlug(slug)
+    const product = found.docs[0]
     if (!product) {
-      payload.logger.warn(`• Không thấy SP "${slug}" — bỏ qua ảnh`)
+      payload.logger.warn(`• Không thấy SP "${slug}" — bỏ qua`)
       continue
     }
+
     const files = resolveFiles(src)
     if (files.length === 0) {
       payload.logger.warn(`• Không tìm thấy ảnh cho "${slug}" (nguồn: ${src})`)
       continue
     }
 
+    // Xoá media cũ của sản phẩm để tránh rác (ảnh cũ sai chiều)
+    const oldImages = (product.images || []) as { image?: number | { id: number } }[]
+    for (const it of oldImages) {
+      const id = typeof it.image === 'object' ? it.image?.id : it.image
+      if (id) {
+        try {
+          await payload.delete({ collection: 'media', id })
+        } catch {
+          /* bỏ qua nếu đã bị xoá */
+        }
+      }
+    }
+
+    // Upload ảnh đã chuẩn hoá
     const imageIds: number[] = []
     let idx = 1
     for (const filePath of files) {
-      const ext = path.extname(filePath).toLowerCase()
-      const buffer = fs.readFileSync(filePath)
+      const buffer = await normalizeImage(filePath)
       const media = await payload.create({
         collection: 'media',
         data: { alt: product.title },
         file: {
           data: buffer,
-          mimetype: mimeOf(ext),
-          name: `${slug}-${idx}${ext === '.jpeg' ? '.jpg' : ext}`,
+          mimetype: 'image/jpeg',
+          name: `${slug}-${idx}.jpg`,
           size: buffer.length,
         },
       })
@@ -133,7 +134,7 @@ const run = async () => {
       id: product.id,
       data: { images: imageIds.map((id) => ({ image: id })) },
     })
-    payload.logger.info(`✓ Ảnh: ${product.title} — ${imageIds.length} ảnh`)
+    payload.logger.info(`✓ ${product.title} — ${imageIds.length} ảnh (đã chuẩn hoá chiều)`)
   }
 
   payload.logger.info('🎉 Upload ảnh hoàn tất.')
