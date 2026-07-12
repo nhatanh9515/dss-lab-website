@@ -12,9 +12,9 @@ export function Header({ settings }: { settings: SiteSetting }) {
 
   return (
     <header className="sticky top-0 z-40 border-b border-line-subtle bg-bg/95 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-content items-center gap-4 px-4 md:px-9">
+      <div className="mx-auto flex h-16 max-w-content items-center gap-3 px-4 md:gap-4 md:px-9">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex shrink-0 items-center gap-2">
           {logoUrl ? (
             <Image
               src={logoUrl}
@@ -24,13 +24,13 @@ export function Header({ settings }: { settings: SiteSetting }) {
               className="h-8 w-auto object-contain"
             />
           ) : (
-            <span className="font-heading text-lg font-semibold tracking-[3px] md:text-xl">
+            <span className="font-heading text-base font-semibold tracking-[2px] md:text-xl md:tracking-[3px]">
               DSS HOMELAB
             </span>
           )}
         </Link>
 
-        {/* Bên phải: menu + tìm kiếm (desktop) */}
+        {/* Desktop: menu + tìm kiếm bên phải */}
         <div className="ml-auto hidden items-center gap-6 md:flex">
           <nav className="flex items-center gap-7">
             {NAV_LINKS.map((link) => (
@@ -43,13 +43,16 @@ export function Header({ settings }: { settings: SiteSetting }) {
               </Link>
             ))}
           </nav>
-          <Suspense fallback={<div className="h-9 w-48" />}>
+          <Suspense fallback={<div className="h-9 w-52" />}>
             <SearchBox className="w-52" />
           </Suspense>
         </div>
 
-        {/* Mobile: hamburger bên phải */}
-        <div className="ml-auto md:hidden">
+        {/* Mobile: ô tìm kiếm ở giữa + nút menu bên phải */}
+        <div className="ml-auto flex flex-1 items-center gap-2 md:hidden">
+          <Suspense fallback={<div className="h-9 flex-1" />}>
+            <SearchBox className="flex-1" />
+          </Suspense>
           <MobileNav hotline={settings.hotline} />
         </div>
       </div>
