@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * ==========================================================================
+ *  DSS HOMELAB — Design tokens
+ *  Nguồn: CLAUDE.md > Design system. KHÔNG hardcode màu trong component,
+ *  luôn dùng các biến / class Tailwind ánh xạ từ đây.
+ * ==========================================================================
+ */
+:root {
+  /* Nền & bề mặt */
+  --bg: #ffffff;
+  --surface: #f2f2f2;
+  --accent: #eff9ff;
+  --accent-strong: #e6f3fd;
+
+  /* Chữ */
+  --ink: #1a1a1a;
+  --ink-soft: #666666;
+  --muted: #888888;
+  --muted-2: #999999;
+  --muted-3: #aaaaaa;
+
+  /* Viền & đường kẻ */
+  --border: #e4e4e4;
+  --border-strong: #d9d9d9;
+  --border-subtle: #eeeeee;
+
+  /* Link / chữ tương tác */
+  --brand-blue: #2a78d6;
+  --brand-blue-hover: #1a5cb0;
+
+  /* Badge tình trạng kho */
+  --badge-in: #d9ecd9;
+  --badge-in-text: #2f6b3d;
+  --badge-low: #fbe8c8;
+  --badge-low-text: #8a5a12;
+  --badge-out: #f2f2f2;
+  --badge-out-text: #999999;
+
+  /* Màu thương hiệu kênh mua */
+  --shopee: #ee4d2d;
+  --tiktok: #000000;
+  --zalo: #0068ff;
+  --facebook: #1877f2;
+  --call: #1a1a1a;
+
+  /* Bo góc */
+  --radius-sm: 10px;
+  --radius: 12px;
+  --radius-lg: 14px;
+  --radius-xl: 16px;
+  --radius-pill: 22px;
+
+  /* Đổ bóng */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 6px 20px rgba(0, 0, 0, 0.07);
+}
+
+@layer base {
+  body {
+    background: var(--bg);
+    color: var(--ink);
+  }
+}

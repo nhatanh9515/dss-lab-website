@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3)",
+      "Bash(node -v)",
+      "Bash(npm -v)",
+      "Bash(git rev-parse *)",
+      "Bash(npx create-payload-app@latest --help)",
+      "Bash(npx create-payload-app@latest -h)",
+      "Bash(timeout 180 npx create-payload-app@latest -n dss -t blank --no-deps --no-agent --use-npm)",
+      "Bash(npx create-payload-app@latest -n dss -t blank --no-deps --no-agent --use-npm)",
+      "Bash(echo \"EXIT=$?\")",
+      "Bash(rm -rf dss)",
+      "Bash(ls -A dss)",
+      "Bash([ -d \"$D\" ])",
+      "Bash(pkill -f \"create-payload-app\")",
+      "Bash(pkill -f \"pty.fork\")",
+      "Bash(npm view *)",
+      "Bash(node -e \"console.log\\(require\\('crypto'\\).randomBytes\\(32\\).toString\\('hex'\\)\\)\")",
+      "Bash(sed 's|CHANGE_ME_RANDOM_SECRET|__TRACKED_VAR__|' .env.example)",
+      "Bash(npm install *)",
+      "Bash(npm run *)"
+    ]
+  }
+}
