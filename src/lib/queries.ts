@@ -20,29 +20,17 @@ export const getCategories = async (): Promise<Category[]> => {
   return res.docs
 }
 
-/** Sản phẩm nổi bật cho trang chủ (đã publish). */
-export const getFeaturedProducts = async (limit = 8): Promise<Product[]> => {
-  const payload = await getPayloadClient()
-  const res = await payload.find({
-    collection: 'products',
-    where: { published: { equals: true } },
-    sort: 'sortOrder',
-    limit,
-    depth: 1,
-  })
-  return res.docs
-}
-
 /**
- * Danh sách sản phẩm cho trang /san-pham.
+ * Danh sách sản phẩm cho trang chủ (có lọc danh mục + tìm kiếm).
  * Có thể lọc theo slug danh mục.
  */
 export const getProducts = async (opts?: {
   categorySlug?: string
+  q?: string
 }): Promise<Product[]> => {
   const payload = await getPayloadClient()
 
-  const where: Where = { published: { equals: true } }
+  const and: Where[] = [{ published: { equals: true } }]
 
   if (opts?.categorySlug) {
     const cat = await payload.find({
@@ -52,12 +40,20 @@ export const getProducts = async (opts?: {
       depth: 0,
     })
     if (cat.docs.length === 0) return []
-    where.category = { equals: cat.docs[0].id }
+    and.push({ category: { equals: cat.docs[0].id } })
+  }
+
+  const q = opts?.q?.trim()
+  if (q) {
+    // Tìm theo tên HOẶC mô tả ngắn (lưu ở seo.description dạng text thuần).
+    and.push({
+      or: [{ title: { like: q } }, { 'seo.description': { like: q } }],
+    })
   }
 
   const res = await payload.find({
     collection: 'products',
-    where,
+    where: { and },
     sort: 'sortOrder',
     limit: 100,
     depth: 1,

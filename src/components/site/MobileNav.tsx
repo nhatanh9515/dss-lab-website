@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { Menu, X, Phone } from 'lucide-react'
 import { NAV_LINKS } from './nav-links'
+import { SearchBox } from './SearchBox'
 
 export function MobileNav({ hotline }: { hotline?: string | null }) {
   const [open, setOpen] = useState(false)
@@ -41,6 +42,8 @@ export function MobileNav({ hotline }: { hotline?: string | null }) {
                 <X size={22} />
               </button>
             </div>
+
+            <SearchBox className="mb-4" onSubmitted={() => setOpen(false)} />
 
             <ul className="flex flex-col gap-1">
               {NAV_LINKS.map((link) => (

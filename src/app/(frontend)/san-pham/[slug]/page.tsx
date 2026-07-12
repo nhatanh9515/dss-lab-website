@@ -50,10 +50,6 @@ export default async function ProductDetailPage({ params }: Params) {
       {/* Breadcrumb */}
       <nav className="mb-4 text-xs text-muted-2">
         <Link href="/" className="hover:text-ink">
-          Trang chủ
-        </Link>
-        <span className="mx-1.5">/</span>
-        <Link href="/san-pham" className="hover:text-ink">
           Sản phẩm
         </Link>
         <span className="mx-1.5">/</span>
@@ -68,7 +64,7 @@ export default async function ProductDetailPage({ params }: Params) {
         <div className="flex flex-col gap-4">
           {category && (
             <Link
-              href={`/san-pham?category=${category.slug}`}
+              href={`/?category=${category.slug}`}
               className="text-xs uppercase tracking-[1.5px] text-muted-2 hover:text-ink"
             >
               {category.name}
