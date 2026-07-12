@@ -245,10 +245,9 @@ const products: P[] = [
     hdsd: 'Dùng BUỔI TỐI, trên vùng da body cần cải thiện. 1. Tắm sạch, lau khô người hoàn toàn. 2. Lấy lượng vừa đủ, thoa đều lên vùng da cần dưỡng trắng, massage nhẹ tới khi thấm. 3. Để qua đêm, sáng hôm sau rửa sạch. Tần suất: bắt đầu 2–3 tối/tuần, sau khi da quen có thể dùng hằng đêm. Ban ngày cần che chắn/chống nắng body ở vùng đã bôi khi ra ngoài.',
     thanhPhan: 'Water, Chất tạo đặc (gel) 3%, Propanediol 3%, Dekansil 4%, White oil 0.5%, Rice Bran Oil 3%, IPM 7.5%, Kojic acid dipalmitate 4%, Nhũ phụ 6%, Stearic acid 1%, Shea butter 0.4%, Glycolic acid 8%, Phytic acid 4%, Lactic acid 4%, KOH, Bột làm trắng 2%, Alpha-Arbutin 4%, THDA 0.5%, Geogard ECT 1%, Spectrastat PHL 1%, Kiribirth 0.5%, STZ-K 0.5%, Tocopherols 0.2%, Hương liệu 0.1%',
     luuY: '• CHỈ DÙNG CHO BODY – không dùng cho vùng mặt. • Nồng độ acid cao: bắt buộc test trên vùng da nhỏ trước khi dùng diện rộng. • Châm chích nhẹ khi mới thoa là bình thường; nếu rát nhiều thì rửa lại và giảm tần suất. • Không dùng ngay sau khi tẩy lông/cạo/wax hoặc trên da đang trầy xước. • Chống nắng/che chắn kỹ vùng da đã dùng. • Không dùng cho phụ nữ mang thai mà không hỏi ý kiến chuyên gia.',
-    price: 0,
+    price: 1950000,
     volume: '',
-    published: false,
-    note: 'Sheet chưa có giá & dung tích → để ẩn (chưa hiển thị), chờ bổ sung giá.',
+    published: true,
   },
   {
     title: 'Ultra Bright',
@@ -259,10 +258,9 @@ const products: P[] = [
     hdsd: 'Dùng BUỔI TỐI (hoặc buổi sáng nếu có che chắn), sau khi tắm. 1. Lau khô da hoàn toàn. 2. Thoa đều lên toàn thân hoặc vùng cần làm sáng, massage nhẹ tới khi thấm. Dùng hằng ngày. Có thể dùng luân phiên với Mela Bleach: Mela Bleach cho giai đoạn tấn công, Ultra Bright cho giai đoạn duy trì.',
     thanhPhan: 'Water, EDTA 0.1%, Gel tạo đặc 3%, Propanediol 3%, Bột tạo đặc 0.5%, Cyclopentasiloxane 0.5%, Dekansil 2%, White oil 0.5%, Rice Bran Oil 2%, THDA 0.5%, IPM 4%, Simulgel SMS 88 7%, Glycolic acid 5%, Tranexamic acid 1%, KOH, Alpha-Arbutin 2%, Kojic dipalmitate 2%, Geogard ECT 1%, CX Rau má 0.5%, Licorice extract 0.5%, Tocopherols 0.2%',
     luuY: '• Chỉ dùng cho body. • Sản phẩm chứa AHA – nên che chắn/chống nắng vùng da đã thoa khi ra ngoài. • Không thoa lên da vừa cạo/wax lông hoặc da đang trầy xước.',
-    price: 0,
+    price: 1250000,
     volume: '',
-    published: false,
-    note: 'Sheet chưa có giá & dung tích → để ẩn (chưa hiển thị), chờ bổ sung giá.',
+    published: true,
   },
   {
     title: 'Butter Ủ Trắng',
@@ -273,10 +271,9 @@ const products: P[] = [
     hdsd: 'Dùng như một bước Ủ TRẮNG, buổi tối sau khi tắm. 1. Lau khô da hoàn toàn. 2. Thoa một lớp dày lên vùng da cần dưỡng trắng, massage nhẹ 1–2 phút. 3. Ủ trong 20–30 phút rồi rửa sạch với nước ấm — HOẶC thoa lớp mỏng và để qua đêm như kem dưỡng thường. Tần suất: 3–4 lần/tuần, hoặc hằng ngày với lớp mỏng. Có thể dùng sau Mela Bleach/Ultra Bright để bổ sung dưỡng ẩm.',
     thanhPhan: 'Water 53.3%, Propylene glycol 7%, HEC 1%, BMTS 3%, Olivem 1000 3%, Jojoba oil 5%, Silksoft 4.5%, Shea butter 0.5%, Titan paste 0.5%, Geogard ECT 1%, Vitamin E 0.2%, Men ong (sữa ong) 5%, Niacinamide 10%, Tranexamic acid 4%, Beta glucan 1%, THDA 1%',
     luuY: '• Chỉ dùng cho body. • Sản phẩm có Titan paste tạo hiệu ứng sáng tức thì – có thể để lại vệt trắng nhẹ trên quần áo, nên đợi thấm hẳn trước khi mặc đồ. • Nồng độ Niacinamide 10% có thể gây châm nhẹ với da rất nhạy cảm – nên test trước và bắt đầu với tần suất thấp. • Người dị ứng sản phẩm từ ong nên cân nhắc trước khi dùng.',
-    price: 0,
+    price: 1500000,
     volume: '',
-    published: false,
-    note: 'Sheet chưa có giá & dung tích → để ẩn (chưa hiển thị), chờ bổ sung giá.',
+    published: true,
   },
 ]
 
