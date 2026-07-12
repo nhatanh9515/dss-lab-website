@@ -1,5 +1,8 @@
 # dependencies
 /node_modules
+# thư mục .nosync để iCloud KHÔNG đồng bộ (node_modules & .next được symlink tới đây)
+/node_modules.nosync
+/.next.nosync
 
 # next.js
 /.next/
