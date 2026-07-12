@@ -39,6 +39,10 @@ export default buildConfig({
   plugins: [
     // Lưu ảnh lên Cloudflare R2 (S3-compatible)
     s3Storage({
+      // Trên Vercel: upload thẳng từ trình duyệt lên R2 (không đi qua server) để
+      // tránh giới hạn 4.5MB của serverless. Cần cấu hình CORS cho bucket R2.
+      // Ở local: upload qua server (không cần CORS cho localhost).
+      clientUploads: Boolean(process.env.VERCEL),
       collections: {
         media: {
           prefix: 'media',

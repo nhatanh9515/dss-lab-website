@@ -142,3 +142,12 @@ Sprint 3: ✅ HOÀN THÀNH (SEO + Analytics + tối ưu tốc độ)
 - Lighthouse mobile (bản production, cache ấm): Trang chủ perf 92-94, Chi tiết LCP 2.4s;
   SEO 100, a11y 94-96, best-practices 96. Dao động điểm perf local là do tải máy (Chrome nhiều tab),
   production trên Vercel (CDN) sẽ ổn định ≥90.
+
+Sprint 4: ✅ HOÀN THÀNH (tài liệu deploy, chưa deploy — chờ PM tự bấm)
+- clientUploads chỉ bật trên Vercel (Boolean(process.env.VERCEL)) để tránh giới hạn 4.5MB
+  của serverless khi upload ảnh; local vẫn upload qua server (không cần CORS localhost)
+- DATABASE_URI production PHẢI dùng chuỗi Neon POOLED (host có -pooler)
+- README.md: chạy local, backup DB (Neon PITR / pg_dump), thêm sản phẩm
+- DEPLOY.md: checklist env, GitHub→Vercel, DNS (A @ 76.76.21.21 / CNAME www),
+  CORS R2, kiểm tra sau deploy, submit sitemap lên Search Console
+- CHƯA có git remote; CHƯA deploy (PM sẽ tự làm theo DEPLOY.md)
