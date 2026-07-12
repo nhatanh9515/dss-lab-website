@@ -639,6 +639,17 @@ export interface SiteSetting {
     description?: string | null;
     ogImage?: (number | null) | Media;
   };
+  /**
+   * Chọn hiển thị nút nào. Tick "Hiện" và điền link/số tương ứng. Bỏ tick để ẩn.
+   */
+  floatingContact?: {
+    messengerEnabled?: boolean | null;
+    messengerUrl?: string | null;
+    zaloEnabled?: boolean | null;
+    zaloUrl?: string | null;
+    callEnabled?: boolean | null;
+    callPhone?: string | null;
+  };
   footer?: {
     /**
      * Dòng chữ dưới tên thương hiệu ở chân trang.
@@ -684,6 +695,16 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         ogImage?: T;
+      };
+  floatingContact?:
+    | T
+    | {
+        messengerEnabled?: T;
+        messengerUrl?: T;
+        zaloEnabled?: T;
+        zaloUrl?: T;
+        callEnabled?: T;
+        callPhone?: T;
       };
   footer?:
     | T

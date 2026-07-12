@@ -49,8 +49,9 @@ export default async function FrontendLayout({
         <div className="flex-1">{children}</div>
         <Footer settings={settings} />
         <FloatingContact
-          zalo={settings.social?.zalo}
-          hotline={settings.hotline}
+          config={settings.floatingContact}
+          fallbackZalo={settings.social?.zalo}
+          fallbackHotline={settings.hotline}
         />
       </body>
     </html>

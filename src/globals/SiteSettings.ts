@@ -48,6 +48,65 @@ export const SiteSettings: GlobalConfig = {
       ],
     },
     {
+      name: 'floatingContact',
+      type: 'group',
+      label: 'Nút liên hệ nổi (góc phải màn hình)',
+      admin: {
+        description:
+          'Chọn hiển thị nút nào. Tick "Hiện" và điền link/số tương ứng. Bỏ tick để ẩn.',
+      },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'messengerEnabled',
+              type: 'checkbox',
+              label: 'Hiện Messenger',
+              defaultValue: false,
+            },
+            {
+              name: 'messengerUrl',
+              type: 'text',
+              label: 'Link Messenger (vd: https://m.me/tenpage)',
+            },
+          ],
+        },
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'zaloEnabled',
+              type: 'checkbox',
+              label: 'Hiện Zalo',
+              defaultValue: true,
+            },
+            {
+              name: 'zaloUrl',
+              type: 'text',
+              label: 'Link Zalo (vd: https://zalo.me/0900000000)',
+            },
+          ],
+        },
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'callEnabled',
+              type: 'checkbox',
+              label: 'Hiện Gọi điện',
+              defaultValue: true,
+            },
+            {
+              name: 'callPhone',
+              type: 'text',
+              label: 'Số điện thoại',
+            },
+          ],
+        },
+      ],
+    },
+    {
       name: 'footer',
       type: 'group',
       label: 'Chân trang (Footer)',
