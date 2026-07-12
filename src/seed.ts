@@ -5,7 +5,11 @@
  * Có thể chạy lại nhiều lần — script tự kiểm tra theo slug/email,
  * cái nào có rồi thì cập nhật, chưa có thì tạo mới.
  */
-import { loadEnvConfig } from '@next/env'
+import { createRequire } from 'module'
+
+// @next/env là CommonJS nên nạp qua require để tránh lỗi named-export ESM.
+const require = createRequire(import.meta.url)
+const { loadEnvConfig } = require('@next/env') as typeof import('@next/env')
 
 // Nạp biến môi trường (.env) TRƯỚC khi import payload.config,
 // vì config đọc process.env ngay khi được nạp.
