@@ -111,4 +111,14 @@ SiteSettings (global): logo, hotline, các link social, SEO mặc định, banne
 - Tôi là PM không biết code. Giải thích ngắn gọn bằng tiếng Việt, luôn nói rõ tôi cần tự tay làm gì (tạo tài khoản, lấy API key, dán biến môi trường...).
 
 ## Trạng thái
-Sprint 1: chưa bắt đầu
+Sprint 1: ✅ HOÀN THÀNH (backend/CMS, chưa làm frontend cho khách)
+- Next.js 16 + Payload 3.86 nhúng chung repo, admin ở /admin, adapter Postgres (Neon)
+- Collections: Products, Categories, Media, Users; Global: SiteSettings
+- stockStatus tự tính từ stock (readonly); slug tự sinh (bỏ dấu tiếng Việt), sửa tay được
+- Upload ảnh lên Cloudflare R2 + resize 4 size (thumbnail/card/feature/og)
+- Design tokens (globals.css + tailwind.config) theo mục Design system ở trên
+- Đã thêm field `description` (richText) cho Product ngoài data model gốc
+- Seed: 1 admin + 2 danh mục + 3 sản phẩm (npm run seed)
+
+Sprint 2 (dự kiến): frontend cho khách — trang chủ, danh sách, chi tiết sản phẩm,
+nút mua (Shopee/TikTok/Zalo/FB/Call) + GA4 event, badge stockStatus.
