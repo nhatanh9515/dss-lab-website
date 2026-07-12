@@ -10,6 +10,9 @@ import { BuyButtons } from '@/components/product/BuyButtons'
 import { ProductTabs } from '@/components/product/ProductTabs'
 import { ProductGrid } from '@/components/product/ProductGrid'
 import { RichTextBlock } from '@/components/RichTextBlock'
+import { ProductJsonLd, BreadcrumbJsonLd } from '@/components/seo/JsonLd'
+import { getBaseUrl } from '@/lib/site'
+import { richTextToPlain } from '@/lib/format'
 
 type Params = { params: Promise<{ slug: string }> }
 
@@ -18,12 +21,33 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const product = await getProductBySlug(slug)
   if (!product) return { title: 'Không tìm thấy sản phẩm' }
 
-  const ogUrl = getImageUrl(product.seo?.ogImage, 'og') || getImageUrl(product.images?.[0]?.image, 'og')
+  const title = product.seo?.title || product.title
+  const description =
+    product.seo?.description ||
+    richTextToPlain(product.description).slice(0, 200) ||
+    undefined
+  const ogUrl =
+    getImageUrl(product.seo?.ogImage, 'og') ||
+    getImageUrl(product.images?.[0]?.image, 'og')
+  const canonical = `/san-pham/${product.slug}`
 
   return {
-    title: product.seo?.title || product.title,
-    description: product.seo?.description || undefined,
-    openGraph: ogUrl ? { images: [{ url: ogUrl }] } : undefined,
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      type: 'website',
+      title,
+      ...(description ? { description } : {}),
+      url: canonical,
+      ...(ogUrl ? { images: [{ url: ogUrl }] } : {}),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      ...(description ? { description } : {}),
+      ...(ogUrl ? { images: [ogUrl] } : {}),
+    },
   }
 }
 
@@ -45,8 +69,16 @@ export default async function ProductDetailPage({ params }: Params) {
   const category =
     typeof product.category === 'object' && product.category ? product.category : null
 
+  const base = getBaseUrl()
+  const crumbs = [
+    { name: 'Sản phẩm', url: `${base}/` },
+    { name: product.title, url: `${base}/san-pham/${product.slug}` },
+  ]
+
   return (
     <main className="mx-auto max-w-content px-4 py-5 md:px-9 md:py-7">
+      <ProductJsonLd product={product} />
+      <BreadcrumbJsonLd items={crumbs} />
       {/* Breadcrumb */}
       <nav className="mb-4 text-xs text-muted-2">
         <Link href="/" className="hover:text-ink">

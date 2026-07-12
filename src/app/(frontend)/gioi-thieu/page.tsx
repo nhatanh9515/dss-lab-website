@@ -3,6 +3,12 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Giới thiệu',
   description: 'Về thương hiệu mỹ phẩm DSS HOMELAB',
+  alternates: { canonical: '/gioi-thieu' },
+  openGraph: {
+    title: 'Giới thiệu',
+    description: 'Về thương hiệu mỹ phẩm DSS HOMELAB',
+    url: '/gioi-thieu',
+  },
 }
 
 export default function AboutPage() {

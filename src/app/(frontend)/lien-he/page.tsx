@@ -5,6 +5,12 @@ import { getSiteSettings } from '@/lib/queries'
 export const metadata: Metadata = {
   title: 'Liên hệ',
   description: 'Liên hệ với DSS HOMELAB',
+  alternates: { canonical: '/lien-he' },
+  openGraph: {
+    title: 'Liên hệ',
+    description: 'Liên hệ với DSS HOMELAB',
+    url: '/lien-he',
+  },
 }
 
 export default async function ContactPage() {

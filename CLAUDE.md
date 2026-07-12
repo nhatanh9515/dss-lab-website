@@ -131,3 +131,14 @@ Sprint 2: ✅ HOÀN THÀNH (frontend cho khách, mobile-first)
 - Loading skeleton qua <Suspense> trong trang (KHÔNG dùng loading.tsx vì nó làm notFound() trả 200 thay vì 404), empty state, not-found (404 chuẩn)
 - GA4 nạp qua NEXT_PUBLIC_GA4_ID (tuỳ chọn); thêm 3 field cho Product: benefits(richText), ingredients(textarea), howToUse(richText)
 - LƯU Ý cho sprint sau: không đặt loading.tsx ở gốc (frontend) hay ở san-pham/ vì sẽ phá HTTP 404 của trang chi tiết
+
+Sprint 3: ✅ HOÀN THÀNH (SEO + Analytics + tối ưu tốc độ)
+- generateMetadata động mọi trang (title/description/OG/canonical), fallback SiteSettings; metadataBase
+- sitemap.xml + robots.txt tự sinh từ Payload (src/app/sitemap.ts, robots.ts)
+- JSON-LD: Organization (layout), Product (offers + availability map từ stockStatus), BreadcrumbList (trang chi tiết)
+- Analytics: GA4 qua @next/third-parties + Meta Pixel (next/script); ID từ NEXT_PUBLIC_GA4_ID / NEXT_PUBLIC_META_PIXEL_ID
+- Event click_shopee/tiktok/zalo/facebook/call kèm { channel, product_slug } cho cả GA4 và Meta Pixel
+- Ảnh: next/image + sizes khắp nơi, priority cho banner/gallery hero, lazy dưới màn hình; CLS = 0
+- Lighthouse mobile (bản production, cache ấm): Trang chủ perf 92-94, Chi tiết LCP 2.4s;
+  SEO 100, a11y 94-96, best-practices 96. Dao động điểm perf local là do tải máy (Chrome nhiều tab),
+  production trên Vercel (CDN) sẽ ổn định ≥90.

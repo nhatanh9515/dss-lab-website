@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -5,6 +6,33 @@ import { getCategories, getSiteSettings } from '@/lib/queries'
 import { getImageUrl, getImageAlt, externalHref } from '@/lib/format'
 import { ProductList } from '@/components/product/ProductList'
 import { ProductGridSkeleton } from '@/components/product/ProductCardSkeleton'
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string; q?: string }>
+}): Promise<Metadata> {
+  const { category, q } = await searchParams
+  const categories = await getCategories()
+  const activeCat = categories.find((c) => c.slug === category)
+
+  // Trang lọc/tìm kiếm trỏ canonical về "/" để tránh trùng lặp nội dung.
+  if (q) {
+    return {
+      title: `Tìm kiếm: ${q}`,
+      alternates: { canonical: '/' },
+      robots: { index: false, follow: true },
+    }
+  }
+  if (activeCat) {
+    return {
+      title: activeCat.name,
+      description: `Sản phẩm ${activeCat.name} — DSS HOMELAB.`,
+      alternates: { canonical: '/' },
+    }
+  }
+  return { alternates: { canonical: '/' } }
+}
 
 export default async function HomePage({
   searchParams,
