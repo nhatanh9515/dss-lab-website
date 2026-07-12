@@ -75,7 +75,8 @@ export const getProductBySlug = async (slug: string): Promise<Product | null> =>
       published: { equals: true },
     },
     limit: 1,
-    depth: 2,
+    // depth 1 đủ để populate ảnh, danh mục, ogImage — không cần quan hệ lồng sâu hơn.
+    depth: 1,
   })
   return res.docs[0] ?? null
 }
