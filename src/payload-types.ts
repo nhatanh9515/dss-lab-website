@@ -194,6 +194,24 @@ export interface Product {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Nội dung tab "Lưu ý" (cảnh báo, chống chỉ định...).
+   */
+  cautions?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   images?:
     | {
         image: number | Media;
@@ -205,6 +223,10 @@ export interface Product {
    * Để trống nếu không giảm giá.
    */
   compareAtPrice?: number | null;
+  /**
+   * Ví dụ: 30ml, 50g. Hiển thị cạnh giá.
+   */
+  volume?: string | null;
   /**
    * Số này KHÔNG hiển thị ra web — chỉ dùng để tính trạng thái kho.
    */
@@ -425,6 +447,7 @@ export interface ProductsSelect<T extends boolean = true> {
   benefits?: T;
   ingredients?: T;
   howToUse?: T;
+  cautions?: T;
   images?:
     | T
     | {
@@ -433,6 +456,7 @@ export interface ProductsSelect<T extends boolean = true> {
       };
   price?: T;
   compareAtPrice?: T;
+  volume?: T;
   stock?: T;
   stockStatus?: T;
   category?: T;

@@ -14,15 +14,18 @@ export function ProductTabs({
   benefits,
   ingredients,
   howToUse,
+  cautions,
 }: {
   benefits?: unknown
   ingredients?: string | null
   howToUse?: unknown
+  cautions?: unknown
 }) {
   const tabs: Tab[] = [
     { key: 'benefits', label: 'Công dụng', richText: benefits },
     { key: 'ingredients', label: 'Thành phần INCI', text: ingredients },
     { key: 'howToUse', label: 'HDSD', richText: howToUse },
+    { key: 'cautions', label: 'Lưu ý', richText: cautions },
   ].filter((t) => (t.richText && typeof t.richText === 'object') || t.text)
 
   const [active, setActive] = useState(0)

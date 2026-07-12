@@ -85,6 +85,9 @@ export default async function ProductDetailPage({ params }: Params) {
               compareAtPrice={product.compareAtPrice}
               size="lg"
             />
+            {product.volume && (
+              <span className="text-sm text-muted-2">/ {product.volume}</span>
+            )}
             <StockBadge status={product.stockStatus} />
           </div>
 
@@ -108,6 +111,7 @@ export default async function ProductDetailPage({ params }: Params) {
               benefits={product.benefits}
               ingredients={product.ingredients}
               howToUse={product.howToUse}
+              cautions={product.cautions}
             />
           </div>
         </div>

@@ -59,6 +59,12 @@ export const Products: CollectionConfig = {
       admin: { description: 'Nội dung tab "HDSD" ở trang chi tiết.' },
     },
     {
+      name: 'cautions',
+      type: 'richText',
+      label: 'Lưu ý',
+      admin: { description: 'Nội dung tab "Lưu ý" (cảnh báo, chống chỉ định...).' },
+    },
+    {
       name: 'images',
       type: 'array',
       label: 'Ảnh sản phẩm',
@@ -91,6 +97,15 @@ export const Products: CollectionConfig = {
           admin: { description: 'Để trống nếu không giảm giá.' },
         },
       ],
+    },
+    {
+      name: 'volume',
+      type: 'text',
+      label: 'Dung tích',
+      admin: {
+        position: 'sidebar',
+        description: 'Ví dụ: 30ml, 50g. Hiển thị cạnh giá.',
+      },
     },
     {
       name: 'stock',
