@@ -65,6 +65,36 @@ const run = async () => {
     }
   }
 
+  // Helper tạo richText Lexical tối giản từ danh sách đoạn văn.
+  const richText = (paragraphs: string[]) => ({
+    root: {
+      type: 'root',
+      format: '' as const,
+      indent: 0,
+      version: 1,
+      direction: 'ltr' as const,
+      children: paragraphs.map((text) => ({
+        type: 'paragraph',
+        format: '' as const,
+        indent: 0,
+        version: 1,
+        direction: 'ltr' as const,
+        textFormat: 0,
+        children: [
+          {
+            type: 'text',
+            format: 0,
+            style: '',
+            mode: 'normal',
+            detail: 0,
+            text,
+            version: 1,
+          },
+        ],
+      })),
+    },
+  })
+
   // ---- 3. Sản phẩm --------------------------------------------------------
   // stock được đặt để minh hoạ đủ 3 trạng thái: còn / sắp hết / hết hàng.
   const productSeed = [
@@ -84,6 +114,21 @@ const run = async () => {
         facebook: 'https://facebook.com/dsshomelab',
         hotline: '0900000000',
       },
+      description: richText([
+        'Serum Vitamin C nồng độ tối ưu giúp da sáng đều màu, mờ thâm nám và chống oxy hoá.',
+      ]),
+      benefits: richText([
+        'Làm sáng da, mờ thâm sau 4 tuần sử dụng đều đặn.',
+        'Chống oxy hoá, bảo vệ da khỏi tác hại môi trường.',
+        'Kết cấu thấm nhanh, không gây nhờn rít.',
+      ]),
+      ingredients:
+        'Aqua, Ascorbic Acid (Vitamin C 10%), Glycerin, Niacinamide, Panthenol, Sodium Hyaluronate, Tocopherol, Centella Asiatica Extract.',
+      howToUse: richText([
+        'Buổi sáng và tối, sau bước toner.',
+        'Lấy 3-4 giọt, thoa đều lên mặt và cổ, vỗ nhẹ cho thấm.',
+        'Ban ngày nhớ dùng kem chống nắng sau khi bôi serum.',
+      ]),
       seo: {
         title: 'Serum Vitamin C dưỡng sáng da | DSS HOMELAB',
         description: 'Serum Vitamin C giúp da sáng đều màu, mờ thâm sau 4 tuần.',
@@ -102,6 +147,19 @@ const run = async () => {
         zalo: 'https://zalo.me/0900000000',
         hotline: '0900000000',
       },
+      description: richText([
+        'Kem dưỡng phục hồi da ban đêm, khoá ẩm suốt 8 giờ cho da mềm mượt khi thức dậy.',
+      ]),
+      benefits: richText([
+        'Cấp ẩm sâu, phục hồi hàng rào bảo vệ da qua đêm.',
+        'Làm dịu da khô, bong tróc.',
+      ]),
+      ingredients:
+        'Aqua, Glycerin, Cetearyl Alcohol, Shea Butter, Ceramide NP, Squalane, Panthenol, Allantoin.',
+      howToUse: richText([
+        'Dùng buổi tối, ở bước cuối chu trình chăm sóc da.',
+        'Lấy lượng vừa đủ, thoa đều và massage nhẹ đến khi thấm.',
+      ]),
       seo: {
         title: 'Kem dưỡng ẩm ban đêm | DSS HOMELAB',
         description: 'Phục hồi da ban đêm, khoá ẩm suốt 8 giờ.',
@@ -119,6 +177,19 @@ const run = async () => {
         tiktok: 'https://www.tiktok.com/@dsshomelab',
         facebook: 'https://facebook.com/dsshomelab',
       },
+      description: richText([
+        'Son kem lì lên màu chuẩn, mềm môi, giữ màu lâu suốt cả ngày.',
+      ]),
+      benefits: richText([
+        'Chất son mịn lì nhưng không làm khô môi.',
+        'Bảng màu tôn da, hợp nhiều tông da Việt.',
+      ]),
+      ingredients:
+        'Isododecane, Dimethicone, Cyclopentasiloxane, Silica, Tocopheryl Acetate, Jojoba Oil, CI 15850, CI 77491.',
+      howToUse: richText([
+        'Thoa trực tiếp lên môi, có thể tán nhẹ từ trong ra ngoài.',
+        'Tẩy trang môi bằng dầu/tẩy trang chuyên dụng sau khi dùng.',
+      ]),
       seo: {
         title: 'Son kem lì DSS matte | DSS HOMELAB',
         description: 'Son kem lì lên màu chuẩn, mềm môi, lâu trôi.',

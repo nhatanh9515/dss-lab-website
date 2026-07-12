@@ -37,7 +37,26 @@ export const Products: CollectionConfig = {
     {
       name: 'description',
       type: 'richText',
-      label: 'Mô tả',
+      label: 'Mô tả ngắn',
+      admin: { description: 'Đoạn giới thiệu ngắn hiển thị gần tên sản phẩm.' },
+    },
+    {
+      name: 'benefits',
+      type: 'richText',
+      label: 'Công dụng',
+      admin: { description: 'Nội dung tab "Công dụng" ở trang chi tiết.' },
+    },
+    {
+      name: 'ingredients',
+      type: 'textarea',
+      label: 'Thành phần (INCI)',
+      admin: { description: 'Nội dung tab "Thành phần INCI". Liệt kê thành phần.' },
+    },
+    {
+      name: 'howToUse',
+      type: 'richText',
+      label: 'Hướng dẫn sử dụng',
+      admin: { description: 'Nội dung tab "HDSD" ở trang chi tiết.' },
     },
     {
       name: 'images',

@@ -136,7 +136,50 @@ export interface Product {
    * Tự sinh từ tên, có thể sửa tay.
    */
   slug?: string | null;
+  /**
+   * Đoạn giới thiệu ngắn hiển thị gần tên sản phẩm.
+   */
   description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Nội dung tab "Công dụng" ở trang chi tiết.
+   */
+  benefits?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Nội dung tab "Thành phần INCI". Liệt kê thành phần.
+   */
+  ingredients?: string | null;
+  /**
+   * Nội dung tab "HDSD" ở trang chi tiết.
+   */
+  howToUse?: {
     root: {
       type: string;
       children: {
@@ -379,6 +422,9 @@ export interface ProductsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   description?: T;
+  benefits?: T;
+  ingredients?: T;
+  howToUse?: T;
   images?:
     | T
     | {

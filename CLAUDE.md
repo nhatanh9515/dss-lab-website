@@ -120,5 +120,14 @@ Sprint 1: ✅ HOÀN THÀNH (backend/CMS, chưa làm frontend cho khách)
 - Đã thêm field `description` (richText) cho Product ngoài data model gốc
 - Seed: 1 admin + 2 danh mục + 3 sản phẩm (npm run seed)
 
-Sprint 2 (dự kiến): frontend cho khách — trang chủ, danh sách, chi tiết sản phẩm,
-nút mua (Shopee/TikTok/Zalo/FB/Call) + GA4 event, badge stockStatus.
+Sprint 2: ✅ HOÀN THÀNH (frontend cho khách, mobile-first)
+- Lấy dữ liệu bằng Payload Local API trong server component (src/lib/queries.ts), không gọi REST
+- Layout chung: Header (logo/menu/hotline + MobileNav drawer), Footer (brand/menu/social), nút Zalo+Call nổi góc phải
+- Trang chủ (/): banner từ SiteSettings (có fallback), chip danh mục, grid SP nổi bật
+- Danh sách (/san-pham): grid, lọc theo ?category=slug, sắp theo sortOrder
+- Chi tiết (/san-pham/[slug]): gallery, giá + giá gạch, badge kho, mô tả, tabs Công dụng/Thành phần INCI/HDSD, khối nút mua, SP liên quan
+- <BuyButtons/>: chỉ render nút có link; nút gọi dùng tel:; hết hàng → disable nút mua + hiện "Tạm hết hàng"; bắn GA4 event click_*
+- Trang /gioi-thieu (tĩnh) và /lien-he (từ SiteSettings)
+- Loading skeleton qua <Suspense> trong trang (KHÔNG dùng loading.tsx vì nó làm notFound() trả 200 thay vì 404), empty state, not-found (404 chuẩn)
+- GA4 nạp qua NEXT_PUBLIC_GA4_ID (tuỳ chọn); thêm 3 field cho Product: benefits(richText), ingredients(textarea), howToUse(richText)
+- LƯU Ý cho sprint sau: không đặt loading.tsx ở gốc (frontend) hay ở san-pham/ vì sẽ phá HTTP 404 của trang chi tiết
